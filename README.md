@@ -1,3 +1,4 @@
+Author: Manav Sachdeva
 # Heart Disease Analysis
 
 This project analyzes heart disease related data using **SQL, data visualization, and web integration** techniques.  
