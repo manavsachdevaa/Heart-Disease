@@ -114,8 +114,10 @@ def api_data():
 def api_story():
     return jsonify(story_steps)
 
+
 import os
 
+port = int(os.environ.get("PORT", 8080))
+
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 8000))
     app.run(host='0.0.0.0', port=port)
