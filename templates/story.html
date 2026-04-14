@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}Story – Heart Disease Analysis{% endblock %}
+
+{% block extra_css %}
+.story-hero {
+  background: linear-gradient(135deg, #eef2ff, #f7f9ff);
+  padding: 3.5rem 2.5rem 2rem;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+.story-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.8rem); margin-bottom:.75rem; }
+.story-hero p { color:var(--muted); max-width:600px; margin:0 auto; }
+
+.story-section { padding: 3rem 2.5rem; }
+.story-inner { max-width: 1280px; margin: 0 auto; }
+
+/* STEP INFO CARDS */
+.step-cards {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2.5rem;
+}
+.step-card {
+  background: white; border-radius: 14px; padding: 1.3rem 1.4rem;
+  border: 1px solid var(--border); border-left: 4px solid var(--blue);
+  transition: transform .2s, box-shadow .2s;
+}
+.step-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(59,91,219,.1); }
+.step-card .s-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--blue); color: white;
+  font-size: .8rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: .6rem;
+}
+.step-card h4 { font-size: .88rem; font-weight: 700; color: var(--text); margin-bottom: .3rem; }
+.step-card p { font-size: .78rem; color: var(--muted); line-height: 1.5; }
+
+/* TABLEAU EMBED */
+.tableau-container {
+  width: 100%;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(0,0,0,.08);
+  overflow: hidden;
+  padding: 1.5rem;
+}
+.tableau-live-badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: #dcfce7; color: #166534;
+  font-size: .75rem; font-weight: 700;
+  padding: .3rem .75rem; border-radius: 20px;
+  margin-bottom: 1rem;
+}
+.tableau-live-badge .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #16a34a;
+  animation: blink 1.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+tableau-viz { display: block; width: 100%; }
+
+@media(max-width:768px){ .step-cards{grid-template-columns:1fr 1fr;} }
+@media(max-width:480px){ .step-cards{grid-template-columns:1fr;} }
+{% endblock %}
+
+{% block content %}
+<div class="story-hero reveal">
+  <p class="section-tag">HEART DISEASE STORY</p>
+  <h1>Heart Disease Story</h1>
+  <p>A guided 6-step narrative walkthrough of the most important findings — powered live from Tableau Public.</p>
+</div>
+
+<div class="story-section">
+  <div class="story-inner">
+
+    <!-- STEP SUMMARY CARDS -->
+    <div class="step-cards">
+      <div class="step-card reveal">
+        <div class="s-num">1</div>
+        <h4>Gender suffering from Heart Disease</h4>
+        <p>Female vs male breakdown of heart disease diagnoses across the patient population.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="s-num">2</div>
+        <h4>Effect of Physical Activity</h4>
+        <p>How exercise habits correlate with reduced cardiovascular risk in patients.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="s-num">3</div>
+        <h4>Diabetes Affecting Heart Disease</h4>
+        <p>Relationship between diabetic status and susceptibility to cardiovascular disease.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="s-num">4</div>
+        <h4>Impact of Smoking and Alcohol on Stroke</h4>
+        <p>Tobacco and alcohol contribution to stroke risk in the study population.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="s-num">5</div>
+        <h4>Diversity-wise Heart Disease Count</h4>
+        <p>Racial and ethnic distribution revealing systemic healthcare disparities.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="s-num">6</div>
+        <h4>Diabetes within Age Category</h4>
+        <p>Age-stratified view of diabetes prevalence and its intersection with heart disease.</p>
+      </div>
+    </div>
+
+    <!-- LIVE TABLEAU STORY EMBED -->
+    <div class="tableau-container reveal">
+      <div class="tableau-live-badge">
+        <span class="dot"></span> Live Tableau Story
+      </div>
+      <tableau-viz
+        id="tableauStory"
+        src="https://public.tableau.com/views/heart_disease_dashboards/Story3"
+        width="100%"
+        height="900"
+        toolbar="bottom">
+      </tableau-viz>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+{% endblock %}
